@@ -1,0 +1,14 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8.3.0
+    ports:
+      - "3306:3306"  # prvi je spoljni tj defaultni mysql port, ovaj drugi je zapravo moj kontejner za mysql
+    volumes:  # ako nema ovoga, nestace svi podaci kad zaustavimo kontejner
+      - ./mysql:/docker-entrypoint-initdb.d/ #ako imas init skriptu za bazu pokrenuce je
+      - ./mysql-data:/var/lib/mysql #u ovom folderu se pamti sve, stanje i podesavanja za kontejner
+    environment:
+      MYSQL_PASSWORD: book
+      MYSQL_DATABASE: book
+      MYSQL_USER: book
+      MYSQL_ROOT_PASSWORD: book
