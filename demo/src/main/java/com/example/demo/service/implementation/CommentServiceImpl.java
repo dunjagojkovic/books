@@ -1,17 +1,18 @@
 package com.example.demo.service.implementation;
 
-import com.example.demo.dto.AddCommentForBookDto;
-import com.example.demo.dto.BookDto;
+import com.example.demo.dto.CommentDto;
+import com.example.demo.dto.BookDetailsDto;
 import com.example.demo.exception.BookNotFoundException;
 import com.example.demo.mapper.BookMapper;
 import com.example.demo.mapper.CommentMapper;
 import com.example.demo.model.Book;
-import com.example.demo.model.Comment;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.repository.CommentRepository;
 import com.example.demo.service.definition.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,21 +24,28 @@ public class CommentServiceImpl implements CommentService {
     private final BookMapper bookMapper;
 
     @Override
-    public Long addComment (AddCommentForBookDto dto, Long bookId) {
+    public Long addComment(CommentDto dto, Long bookId) {
         Book bookToAddComment = bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotFoundException("Book with id: " + bookId + " does not exist."));
-        BookDto bookDto = bookMapper.toDto(bookToAddComment);
+        BookDetailsDto bookDetailsDto = bookMapper.toDto(bookToAddComment);
 
-        return commentRepository.save(commentMapper.toModel(dto,bookDto)).getId();
+        return commentRepository.save(commentMapper.toModel(dto, bookDetailsDto)).getId();
     }
 
     @Override
-    public AddCommentForBookDto getById (Long id) {
+    public CommentDto getById(Long id) {
         return null;
     }
 
     @Override
-    public void deleteComment (Long id) {
+    public void deleteComment(Long id) {
 
+    }
+
+    @Override
+    public List<CommentDto> getAllCommentsForBook(Long bookId) {
+        Book bookToViewComments = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException("Book with id: " + bookId + " does not exist."));
+        return commentRepository.findByBookId(bookToViewComments.getId());
     }
 }

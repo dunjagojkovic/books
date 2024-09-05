@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.BookDto;
-import com.example.demo.dto.EditBookDto;
+import com.example.demo.dto.BookDetailsDto;
+import com.example.demo.dto.EditBookDetailsDto;
 import com.example.demo.service.definition.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,7 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping
-    public ResponseEntity<?> createBook(@RequestBody BookDto dto){
+    public ResponseEntity<?> createBook(@RequestBody BookDetailsDto dto){
         Long bookId = bookService.createBook(dto);
         return new ResponseEntity<>("Book with id: " + bookId + " created.", HttpStatus.CREATED);
     }
@@ -27,7 +27,7 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateBook(@RequestBody EditBookDto dto, @PathVariable Long id){
+    public ResponseEntity<?> updateBook(@RequestBody EditBookDetailsDto dto, @PathVariable Long id){
         bookService.updateBook(id, dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }

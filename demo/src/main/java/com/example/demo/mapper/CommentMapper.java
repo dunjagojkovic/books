@@ -1,7 +1,7 @@
 package com.example.demo.mapper;
 
-import com.example.demo.dto.AddCommentForBookDto;
-import com.example.demo.dto.BookDto;
+import com.example.demo.dto.CommentDto;
+import com.example.demo.dto.BookDetailsDto;
 import com.example.demo.model.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ public class CommentMapper {
 
     private final BookMapper bookMapper;
 
-    public Comment toModel(AddCommentForBookDto commentDto, BookDto bookdto){
+    public Comment toModel(CommentDto commentDto, BookDetailsDto bookdto){
 
         Comment comment = new Comment();
         comment.setId(comment.getId());
@@ -22,9 +22,9 @@ public class CommentMapper {
         return comment;
     }
 
-    public AddCommentForBookDto toDto(Comment comment){
+    public CommentDto toDto(Comment comment){
 
-        AddCommentForBookDto dto = new AddCommentForBookDto();
+        CommentDto dto = new CommentDto();
         dto.setContent(comment.getContent());
         dto.setId(comment.getId());
 

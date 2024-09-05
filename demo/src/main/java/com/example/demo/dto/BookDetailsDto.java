@@ -5,12 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddCommentForBookDto {
+public class BookDetailsDto {
 
     private Long id;
-    private String content;
+    private Integer numberOfPages;
+    private String title;
 }

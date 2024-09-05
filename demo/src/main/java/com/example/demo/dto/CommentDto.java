@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EditBookDto {
+public class CommentDto {
 
-    private Integer numberOfPages;
-    private String title;
+    private Long id;
+    private String content;
 }

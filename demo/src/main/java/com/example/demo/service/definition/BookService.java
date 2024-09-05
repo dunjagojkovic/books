@@ -1,15 +1,15 @@
 package com.example.demo.service.definition;
 
-import com.example.demo.dto.BookDto;
-import com.example.demo.dto.EditBookDto;
+import com.example.demo.dto.BookDetailsDto;
+import com.example.demo.dto.EditBookDetailsDto;
 
 import java.util.List;
 
 public interface BookService {
 
-    Long createBook(BookDto dto);
-    BookDto getById(Long id);
-    void updateBook(Long id, EditBookDto dto);
-    List<BookDto> getAll();
+    Long createBook(BookDetailsDto dto);
+    BookDetailsDto getById(Long id);
+    void updateBook(Long id, EditBookDetailsDto dto);
+    List<BookDetailsDto> getAll();
     void deleteBook(Long id);
 }

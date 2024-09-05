@@ -5,16 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookDto {
+public class EditBookDetailsDto {
 
-    private Long id;
     private Integer numberOfPages;
     private String title;
-    private List<CommentDto> comments;
 }
