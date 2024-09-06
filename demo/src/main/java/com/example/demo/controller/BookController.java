@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/books")
+@RequestMapping("/api/books")
 @RequiredArgsConstructor
 public class BookController {
 
@@ -21,9 +21,9 @@ public class BookController {
         return new ResponseEntity<>("Book with id: " + bookId + " created.", HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/book-details")
     public ResponseEntity<?> getBookInfo(@PathVariable Long id){
-        return new ResponseEntity<>(bookService.getById(id), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.getBookDetailsById(id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -41,5 +41,10 @@ public class BookController {
     public ResponseEntity<?> deleteBook(@PathVariable Long id){
         bookService.deleteBook(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{bookId}")
+    public ResponseEntity<?> getBookById(@PathVariable Long bookId){
+        return new ResponseEntity<>(bookService.getById(bookId), HttpStatus.OK);
     }
 }

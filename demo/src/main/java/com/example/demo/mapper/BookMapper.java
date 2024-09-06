@@ -46,14 +46,12 @@ public class BookMapper {
         return book;
     }
 
-    public Book toModel(EditBookDetailsDto dto, Long id){
+    public Book toModel(EditBookDetailsDto dto, Book bookFromDdb){
 
-        Book book = new Book();
-        book.setId(id);
-        book.setTitle(dto.getTitle());
-        book.setNumberOfPages(dto.getNumberOfPages());
+        bookFromDdb.setTitle(dto.getTitle());
+        bookFromDdb.setNumberOfPages(dto.getNumberOfPages());
 
-        return book;
+        return bookFromDdb;
     }
 
     private List<CommentDto> convertCommentToDto(List<Comment> comments) {

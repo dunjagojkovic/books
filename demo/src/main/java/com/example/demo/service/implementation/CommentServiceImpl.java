@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +47,9 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentDto> getAllCommentsForBook(Long bookId) {
         Book bookToViewComments = bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotFoundException("Book with id: " + bookId + " does not exist."));
-        return commentRepository.findByBookId(bookToViewComments.getId());
+        return commentRepository.findByBook(bookToViewComments)
+                .stream()
+                .map(commentMapper::toDto)
+                .collect(Collectors.toList());
     }
 }

@@ -8,18 +8,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/comments")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class CommentController {
 
     private final CommentService commentService;
 
-    @PostMapping("/{bookId}")
+    @PostMapping("/books/{bookId}/comments")
     public ResponseEntity<?> addCommentForBook(@RequestBody CommentDto dto, @PathVariable Long bookId){
        return new ResponseEntity<>(commentService.addComment(dto, bookId), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{bookId}")
+    @GetMapping("/books/{bookId}/comments")
     public ResponseEntity<?> getAllCommentsForBook(@PathVariable Long bookId){
         return new ResponseEntity<>(commentService.getAllCommentsForBook(bookId), HttpStatus.OK);
     }

@@ -12,11 +12,11 @@ public class CommentMapper {
 
     private final BookMapper bookMapper;
 
-    public Comment toModel(CommentDto commentDto, BookDetailsDto bookdto){
+    public Comment toModel(CommentDto commentDto, BookDetailsDto bookDto){
 
         Comment comment = new Comment();
         comment.setId(comment.getId());
-        comment.setBook(bookMapper.toModel(bookdto));
+        comment.setBook(bookMapper.toModel(bookDto));
         comment.setContent(commentDto.getContent());
 
         return comment;

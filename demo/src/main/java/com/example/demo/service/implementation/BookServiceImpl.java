@@ -1,6 +1,7 @@
 package com.example.demo.service.implementation;
 
 import com.example.demo.dto.BookDetailsDto;
+import com.example.demo.dto.BookDto;
 import com.example.demo.dto.EditBookDetailsDto;
 import com.example.demo.exception.BookNotFoundException;
 import com.example.demo.exception.BookTitleAlreadyExistsException;
@@ -23,7 +24,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Long createBook(BookDetailsDto dto) {
-
+        //todo izbaci ovo i namapiraj sql exception na tvoj custom brze je od ovoga sto si ti radila
         if(bookRepository.findByTitle(dto.getTitle()).isPresent()){
             throw new BookTitleAlreadyExistsException("Book with title: " + dto.getTitle() + " already exists.");
         }
@@ -32,7 +33,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDetailsDto getById(Long id) {
+    public BookDetailsDto getBookDetailsById(Long id) {
         return bookRepository.findById(id)
                 .map(bookMapper::toDto)
                 .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " does not exist."));
@@ -41,7 +42,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(Long id, EditBookDetailsDto dto) {
         bookRepository.findById(id)
-                .map(bookToUpdate -> bookRepository.save(bookMapper.toModel(dto, id)))
+                .map(bookToUpdate -> bookRepository.save(bookMapper.toModel(dto, bookToUpdate)))
                 .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " you are trying to edit does not exist."));
     }
 
@@ -58,5 +59,12 @@ public class BookServiceImpl implements BookService {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " you are trying to edit does not exist."));
         bookRepository.delete(book);
+    }
+
+    @Override
+    public BookDto getById(Long id) {
+        return bookRepository.findById(id)
+                .map(bookMapper::modelToDto)
+                .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " does not exist."));
     }
 }
