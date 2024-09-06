@@ -3,6 +3,7 @@ package com.example.demo.service.implementation;
 import com.example.demo.dto.CommentDto;
 import com.example.demo.dto.BookDetailsDto;
 import com.example.demo.exception.BookNotFoundException;
+import com.example.demo.exception.CommentNotFoundException;
 import com.example.demo.mapper.BookMapper;
 import com.example.demo.mapper.CommentMapper;
 import com.example.demo.model.Book;
@@ -34,13 +35,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto getById(Long id) {
-        return null;
-    }
+    public CommentDto getCommentForBookById(Long bookId, Long commentId) {
+        Book bookToViewComment = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException("Book with id: " + bookId + " does not exist."));
 
-    @Override
-    public void deleteComment(Long id) {
-
+        return commentRepository.findByBook_idAndId(bookToViewComment.getId(), commentId)
+                .map(commentMapper::toDto)
+                .orElseThrow(() -> new CommentNotFoundException("Comment with id: " + commentId + " does not exist."));
     }
 
     @Override

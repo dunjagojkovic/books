@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,8 +25,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Long createBook(BookDetailsDto dto) {
-        //todo izbaci ovo i namapiraj sql exception na tvoj custom brze je od ovoga sto si ti radila
-        if(bookRepository.findByTitle(dto.getTitle()).isPresent()){
+        if(bookRepository.existsByTitle(dto.getTitle())){
             throw new BookTitleAlreadyExistsException("Book with title: " + dto.getTitle() + " already exists.");
         }
 

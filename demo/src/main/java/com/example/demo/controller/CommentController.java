@@ -24,4 +24,10 @@ public class CommentController {
         return new ResponseEntity<>(commentService.getAllCommentsForBook(bookId), HttpStatus.OK);
     }
 
+    @GetMapping("/books/{bookId}/comments/{commentId}")
+    public ResponseEntity<?> getOneCommentForBook(@PathVariable Long bookId, @PathVariable Long commentId){
+        return new ResponseEntity<>(commentService.getCommentForBookById(bookId, commentId), HttpStatus.OK);
+    }
+
+
 }

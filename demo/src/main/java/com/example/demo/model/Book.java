@@ -13,13 +13,14 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "books", uniqueConstraints = {@UniqueConstraint(columnNames = {"title"})})
+@Table(name = "books", indexes = @Index(columnList = "title"))
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer numberOfPages;
+    @Column(unique = true)
     private String title;
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
