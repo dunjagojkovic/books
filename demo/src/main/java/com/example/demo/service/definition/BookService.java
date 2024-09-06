@@ -4,6 +4,8 @@ import com.example.demo.dto.BookDetailsDto;
 import com.example.demo.dto.BookDto;
 import com.example.demo.dto.EditBookDetailsDto;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface BookService {
@@ -16,5 +18,6 @@ public interface BookService {
     BookDto getById(Long id);
     List<BookDetailsDto> searchByTitle(String title);
     List<BookDetailsDto> filterByNumberOfPages (Integer from, Integer to);
+    List<BookDetailsDto> filterByPublishingDate(LocalDate date);
 
 }

@@ -20,6 +20,7 @@ public class BookMapper {
         dto.setId(book.getId());
         dto.setTitle(book.getTitle());
         dto.setNumberOfPages(book.getNumberOfPages());
+        dto.setPublishingDate(book.getPublishingDate());
 
         return dto;
     }
@@ -31,6 +32,7 @@ public class BookMapper {
         dto.setTitle(book.getTitle());
         dto.setNumberOfPages(book.getNumberOfPages());
         dto.setComments(convertCommentToDto(book.getComments()));
+        dto.setPublishingDate(book.getPublishingDate());
 
         return dto;
     }
@@ -42,6 +44,7 @@ public class BookMapper {
         book.setId(dto.getId());
         book.setTitle(dto.getTitle());
         book.setNumberOfPages(dto.getNumberOfPages());
+        book.setPublishingDate(dto.getPublishingDate());
 
         return book;
     }

@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @RestController
 @RequestMapping("/api/books")
 @RequiredArgsConstructor
@@ -56,5 +59,10 @@ public class BookController {
     @GetMapping("/filter_number_of_pages")
     public ResponseEntity<?> filterBooksByNumberOfPagesBetween(@RequestParam Integer from, @RequestParam Integer to){
         return new ResponseEntity<>(bookService.filterByNumberOfPages(from, to), HttpStatus.OK);
+    }
+
+    @GetMapping("/filter_publishing_date")
+    public ResponseEntity<?> filterBooksByPublishingDate(@RequestParam LocalDate date){
+        return new ResponseEntity<>(bookService.filterByPublishingDate(date), HttpStatus.OK);
     }
 }

@@ -12,6 +12,8 @@ import com.example.demo.service.definition.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,6 +80,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDetailsDto> filterByNumberOfPages (Integer from, Integer to) {
         return bookRepository.findByNumberOfPagesBetween(from, to)
+                .stream()
+                .map(bookMapper::toDetailsDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookDetailsDto> filterByPublishingDate (LocalDate date) {
+        return bookRepository.findByPublishingDateAfter(date)
                 .stream()
                 .map(bookMapper::toDetailsDto)
                 .collect(Collectors.toList());
