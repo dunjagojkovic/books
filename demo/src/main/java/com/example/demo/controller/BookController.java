@@ -47,4 +47,9 @@ public class BookController {
     public ResponseEntity<?> getBookById(@PathVariable Long bookId){
         return new ResponseEntity<>(bookService.getById(bookId), HttpStatus.OK);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchBooksByTitle(@RequestParam String title){
+        return new ResponseEntity<>(bookService.searchByTitle(title), HttpStatus.OK);
+    }
 }

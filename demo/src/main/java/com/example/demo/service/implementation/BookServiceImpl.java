@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +34,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookDetailsDto getBookDetailsById(Long id) {
         return bookRepository.findById(id)
-                .map(bookMapper::toDto)
+                .map(bookMapper::toDetailsDto)
                 .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " does not exist."));
     }
 
@@ -50,7 +49,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDetailsDto> getAll() {
         return bookRepository.findAll()
                 .stream()
-                .map(bookMapper::toDto)
+                .map(bookMapper::toDetailsDto)
                 .collect(Collectors.toList());
     }
 
@@ -66,5 +65,13 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findById(id)
                 .map(bookMapper::modelToDto)
                 .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " does not exist."));
+    }
+
+    @Override
+    public List<BookDetailsDto> searchByTitle(String title) {
+        return bookRepository.findByTitleContainingIgnoreCase(title)
+                .stream()
+                .map(bookMapper::toDetailsDto)
+                .collect(Collectors.toList());
     }
 }

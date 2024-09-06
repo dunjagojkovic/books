@@ -29,7 +29,7 @@ public class CommentServiceImpl implements CommentService {
     public Long addComment(CommentDto dto, Long bookId) {
         Book bookToAddComment = bookRepository.findById(bookId)
                 .orElseThrow(() -> new BookNotFoundException("Book with id: " + bookId + " does not exist."));
-        BookDetailsDto bookDetailsDto = bookMapper.toDto(bookToAddComment);
+        BookDetailsDto bookDetailsDto = bookMapper.toDetailsDto(bookToAddComment);
 
         return commentRepository.save(commentMapper.toModel(dto, bookDetailsDto)).getId();
     }

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class BookMapper {
 
-    public BookDetailsDto toDto(Book book){
+    public BookDetailsDto toDetailsDto (Book book){
 
         BookDetailsDto dto = new BookDetailsDto();
         dto.setId(book.getId());

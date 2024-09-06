@@ -14,6 +14,6 @@ public interface BookService {
     List<BookDetailsDto> getAll();
     void deleteBook(Long id);
     BookDto getById(Long id);
-
+    List<BookDetailsDto> searchByTitle(String title);
 
 }
