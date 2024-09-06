@@ -74,4 +74,12 @@ public class BookServiceImpl implements BookService {
                 .map(bookMapper::toDetailsDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<BookDetailsDto> filterByNumberOfPages (Integer from, Integer to) {
+        return bookRepository.findByNumberOfPagesBetween(from, to)
+                .stream()
+                .map(bookMapper::toDetailsDto)
+                .collect(Collectors.toList());
+    }
 }

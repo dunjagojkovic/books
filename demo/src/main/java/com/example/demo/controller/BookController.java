@@ -52,4 +52,9 @@ public class BookController {
     public ResponseEntity<?> searchBooksByTitle(@RequestParam String title){
         return new ResponseEntity<>(bookService.searchByTitle(title), HttpStatus.OK);
     }
+
+    @GetMapping("/filter_number_of_pages")
+    public ResponseEntity<?> filterBooksByNumberOfPagesBetween(@RequestParam Integer from, @RequestParam Integer to){
+        return new ResponseEntity<>(bookService.filterByNumberOfPages(from, to), HttpStatus.OK);
+    }
 }

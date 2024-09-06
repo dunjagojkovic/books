@@ -15,5 +15,6 @@ public interface BookService {
     void deleteBook(Long id);
     BookDto getById(Long id);
     List<BookDetailsDto> searchByTitle(String title);
+    List<BookDetailsDto> filterByNumberOfPages (Integer from, Integer to);
 
 }
