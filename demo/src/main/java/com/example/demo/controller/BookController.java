@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @RestController
 @RequestMapping("/api/books")
@@ -51,17 +50,17 @@ public class BookController {
         return new ResponseEntity<>(bookService.getById(bookId), HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search-by-title")
     public ResponseEntity<?> searchBooksByTitle(@RequestParam String title){
         return new ResponseEntity<>(bookService.searchByTitle(title), HttpStatus.OK);
     }
 
-    @GetMapping("/filter_number_of_pages")
+    @GetMapping("/search-by-number-of-pages")
     public ResponseEntity<?> filterBooksByNumberOfPagesBetween(@RequestParam Integer from, @RequestParam Integer to){
         return new ResponseEntity<>(bookService.filterByNumberOfPages(from, to), HttpStatus.OK);
     }
 
-    @GetMapping("/filter_publishing_date")
+    @GetMapping("/search-by-publishing-date")
     public ResponseEntity<?> filterBooksByPublishingDate(@RequestParam LocalDate date){
         return new ResponseEntity<>(bookService.filterByPublishingDate(date), HttpStatus.OK);
     }
