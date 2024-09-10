@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BookDetailsDto {
 
-    private Long id;
+    private String id;
     private Integer numberOfPages;
     private String title;
     private LocalDate publishingDate;

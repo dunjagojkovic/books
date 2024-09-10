@@ -15,17 +15,17 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/books/{bookId}/comments")
-    public ResponseEntity<?> addCommentForBook(@RequestBody CommentDto dto, @PathVariable Long bookId){
+    public ResponseEntity<?> addCommentForBook(@RequestBody CommentDto dto, @PathVariable String bookId){
        return new ResponseEntity<>(commentService.addComment(dto, bookId), HttpStatus.CREATED);
     }
 
     @GetMapping("/books/{bookId}/comments")
-    public ResponseEntity<?> getAllCommentsForBook(@PathVariable Long bookId){
+    public ResponseEntity<?> getAllCommentsForBook(@PathVariable String bookId){
         return new ResponseEntity<>(commentService.getAllCommentsForBook(bookId), HttpStatus.OK);
     }
 
     @GetMapping("/books/{bookId}/comments/{commentId}")
-    public ResponseEntity<?> getOneCommentForBook(@PathVariable Long bookId, @PathVariable Long commentId){
+    public ResponseEntity<?> getOneCommentForBook(@PathVariable String bookId, @PathVariable String commentId){
         return new ResponseEntity<>(commentService.getCommentForBookById(bookId, commentId), HttpStatus.OK);
     }
 

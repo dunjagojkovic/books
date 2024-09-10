@@ -19,17 +19,17 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<?> createBook(@RequestBody BookDetailsDto dto){
-        Long bookId = bookService.createBook(dto);
+        String bookId = bookService.createBook(dto);
         return new ResponseEntity<>("Book with id: " + bookId + " created.", HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}/book-details")
-    public ResponseEntity<?> getBookInfo(@PathVariable Long id){
+    public ResponseEntity<?> getBookInfo(@PathVariable String id){
         return new ResponseEntity<>(bookService.getBookDetailsById(id), HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateBook(@RequestBody EditBookDetailsDto dto, @PathVariable Long id){
+    public ResponseEntity<?> updateBook(@RequestBody EditBookDetailsDto dto, @PathVariable String id){
         bookService.updateBook(id, dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -40,13 +40,13 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBook(@PathVariable Long id){
+    public ResponseEntity<?> deleteBook(@PathVariable String id){
         bookService.deleteBook(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{bookId}")
-    public ResponseEntity<?> getBookById(@PathVariable Long bookId){
+    public ResponseEntity<?> getBookById(@PathVariable String bookId){
         return new ResponseEntity<>(bookService.getById(bookId), HttpStatus.OK);
     }
 

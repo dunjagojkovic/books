@@ -7,6 +7,8 @@ target/
 mysql
 mysql-data
 
+mongodb-data
+
 ### STS ###
 .apt_generated
 .classpath
@@ -38,3 +40,4 @@ build/
 *.log
 
 *._tmp
+*.wt

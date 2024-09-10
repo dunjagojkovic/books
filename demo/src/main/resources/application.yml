@@ -1,16 +1,14 @@
 spring:
   application:
     name: demo
-  datasource:
-    url: jdbc:mysql://localhost:3306/book
-    username: book
-    password: book
-    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: book
+      username: book
+      password: book
   flyway:
     baseline-on-migrate: true
     enabled: false
-  jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
-    hibernate:
-      ddl-auto: update
-      show-sql: true
+

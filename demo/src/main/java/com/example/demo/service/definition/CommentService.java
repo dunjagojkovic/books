@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CommentService {
 
-    Long addComment(CommentDto dto, Long bookId);
-    CommentDto getCommentForBookById(Long bookId, Long commentId );
-    List<CommentDto> getAllCommentsForBook(Long bookId);
+    String addComment(CommentDto dto, String bookId);
+    CommentDto getCommentForBookById(String bookId, String commentId );
+    List<CommentDto> getAllCommentsForBook(String bookId);
 }

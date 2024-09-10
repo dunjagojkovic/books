@@ -1,16 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.Book;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book, Long> {
+public interface BookRepository extends MongoRepository<Book, String> {
 
     boolean existsByTitle(String title);
     List<Book> findByTitleContainingIgnoreCase(String title);

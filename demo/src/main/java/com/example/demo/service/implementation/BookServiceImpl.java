@@ -24,7 +24,7 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public Long createBook(BookDetailsDto dto) {
+    public String createBook(BookDetailsDto dto) {
         if(bookRepository.existsByTitle(dto.getTitle())){
             throw new BookTitleAlreadyExistsException("Book with title: " + dto.getTitle() + " already exists.");
         }
@@ -33,14 +33,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDetailsDto getBookDetailsById(Long id) {
+    public BookDetailsDto getBookDetailsById(String id) {
         return bookRepository.findById(id)
                 .map(bookMapper::toDetailsDto)
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " does not exist."));
     }
 
     @Override
-    public void updateBook(Long id, EditBookDetailsDto dto) {
+    public void updateBook(String id, EditBookDetailsDto dto) {
         bookRepository.findById(id)
                 .map(bookToUpdate -> bookRepository.save(bookMapper.toModel(dto, bookToUpdate)))
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " you are trying to edit does not exist."));
@@ -55,14 +55,14 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(Long id) {
+    public void deleteBook(String id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " you are trying to edit does not exist."));
         bookRepository.delete(book);
     }
 
     @Override
-    public BookDto getById(Long id) {
+    public BookDto getById(String id) {
         return bookRepository.findById(id)
                 .map(bookMapper::modelToDto)
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " does not exist."));

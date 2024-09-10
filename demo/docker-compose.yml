@@ -1,14 +1,33 @@
 version: '3'
 services:
-  mysql:
-    image: mysql:8.3.0
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    hostname: localhost
     ports:
-      - "3306:3306"  # prvi je spoljni tj defaultni mysql port, ovaj drugi je zapravo moj kontejner za mysql
-    volumes:  # ako nema ovoga, nestace svi podaci kad zaustavimo kontejner
-      - ./mysql:/docker-entrypoint-initdb.d/ #ako imas init skriptu za bazu pokrenuce je
-      - ./mysql-data:/var/lib/mysql #u ovom folderu se pamti sve, stanje i podesavanja za kontejner
+      - "27017:27017"
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./mongodb-data:/data/db/
+#      - ./mongodb-log:/var/log/mongodb/
+    command: ["mongod", "--auth"]
     environment:
-      MYSQL_PASSWORD: book
-      MYSQL_DATABASE: book
-      MYSQL_USER: book
-      MYSQL_ROOT_PASSWORD: book
+      MONGO_INITDB_ROOT_USERNAME: book
+      MONGO_INITDB_ROOT_PASSWORD: book
+
+  mongo-express:
+    image: mongo-express:latest
+    container_name: mongo-express
+    #restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: book
+      ME_CONFIG_MONGODB_ADMINPASSWORD: book
+      ME_CONFIG_MONGODB_PORT: 27017
+      ME_CONFIG_MONGODB_SERVER: 'mongodb'
+      ME_CONFIG_BASICAUTH_USERNAME: book
+      ME_CONFIG_BASICAUTH_PASSWORD: book
+      ME_CONFIG_MONGODB_URL: mongodb://book:book@mongo:27017/book?authSource=admin
+    ports:
+      - 8081:8081
+    depends_on:
+      - mongodb

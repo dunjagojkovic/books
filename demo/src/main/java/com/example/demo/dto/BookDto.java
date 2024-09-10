@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class BookDto {
 
-    private Long id;
+    private String id;
     private Integer numberOfPages;
     private String title;
     private List<CommentDto> comments;

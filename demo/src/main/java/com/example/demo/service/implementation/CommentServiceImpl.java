@@ -25,7 +25,7 @@ public class CommentServiceImpl implements CommentService {
     private final BookMapper bookMapper;
 
     @Override
-    public Long addComment(CommentDto dto, Long bookId) {
+    public String addComment(CommentDto dto, String bookId) {
         Book bookToAddComment = bookRepository.findById(bookId)
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + bookId + " does not exist."));
         BookDetailsDto bookDetailsDto = bookMapper.toDetailsDto(bookToAddComment);
@@ -34,7 +34,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto getCommentForBookById(Long bookId, Long commentId) {
+    public CommentDto getCommentForBookById(String bookId, String commentId) {
         Book bookToViewComment = bookRepository.findById(bookId)
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + bookId + " does not exist."));
 
@@ -44,7 +44,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> getAllCommentsForBook(Long bookId) {
+    public List<CommentDto> getAllCommentsForBook(String bookId) {
         Book bookToViewComments = bookRepository.findById(bookId)
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + bookId + " does not exist."));
         return commentRepository.findByBook(bookToViewComments)

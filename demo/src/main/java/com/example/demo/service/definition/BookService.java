@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface BookService {
 
-    Long createBook(BookDetailsDto dto);
-    BookDetailsDto getBookDetailsById(Long id);
-    void updateBook(Long id, EditBookDetailsDto dto);
+    String createBook(BookDetailsDto dto);
+    BookDetailsDto getBookDetailsById(String id);
+    void updateBook(String id, EditBookDetailsDto dto);
     List<BookDetailsDto> getAll();
-    void deleteBook(Long id);
-    BookDto getById(Long id);
+    void deleteBook(String id);
+    BookDto getById(String id);
     List<BookDetailsDto> searchByTitle(String title);
     List<BookDetailsDto> filterByNumberOfPages (Integer from, Integer to);
     List<BookDetailsDto> filterByPublishingDate(LocalDate date);
