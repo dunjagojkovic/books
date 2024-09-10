@@ -3,8 +3,8 @@ package com.example.demo.service.implementation;
 import com.example.demo.dto.BookDetailsDto;
 import com.example.demo.dto.BookDto;
 import com.example.demo.dto.EditBookDetailsDto;
-import com.example.demo.exception.BookNotFoundException;
 import com.example.demo.exception.BookTitleAlreadyExistsException;
+import com.example.demo.exception.EntityNotFoundException;
 import com.example.demo.mapper.BookMapper;
 import com.example.demo.model.Book;
 import com.example.demo.repository.BookRepository;
@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,14 +36,14 @@ public class BookServiceImpl implements BookService {
     public BookDetailsDto getBookDetailsById(Long id) {
         return bookRepository.findById(id)
                 .map(bookMapper::toDetailsDto)
-                .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " does not exist."));
+                .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " does not exist."));
     }
 
     @Override
     public void updateBook(Long id, EditBookDetailsDto dto) {
         bookRepository.findById(id)
                 .map(bookToUpdate -> bookRepository.save(bookMapper.toModel(dto, bookToUpdate)))
-                .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " you are trying to edit does not exist."));
+                .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " you are trying to edit does not exist."));
     }
 
     @Override
@@ -58,7 +57,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Long id) {
         Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " you are trying to edit does not exist."));
+                .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " you are trying to edit does not exist."));
         bookRepository.delete(book);
     }
 
@@ -66,7 +65,7 @@ public class BookServiceImpl implements BookService {
     public BookDto getById(Long id) {
         return bookRepository.findById(id)
                 .map(bookMapper::modelToDto)
-                .orElseThrow(() -> new BookNotFoundException("Book with id: " + id + " does not exist."));
+                .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " does not exist."));
     }
 
     @Override
@@ -78,7 +77,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDetailsDto> filterByNumberOfPages (Integer from, Integer to) {
+    public List<BookDetailsDto> filterByNumberOfPages(Integer from, Integer to) {
         return bookRepository.findByNumberOfPagesBetween(from, to)
                 .stream()
                 .map(bookMapper::toDetailsDto)
@@ -86,7 +85,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDetailsDto> filterByPublishingDate (LocalDate date) {
+    public List<BookDetailsDto> filterByPublishingDate(LocalDate date) {
         return bookRepository.findByPublishingDateAfter(date)
                 .stream()
                 .map(bookMapper::toDetailsDto)
