@@ -9,9 +9,12 @@ import com.example.demo.mapper.BookMapper;
 import com.example.demo.model.Book;
 import com.example.demo.repository.BookRepository;
 import com.example.demo.service.definition.BookService;
+import com.mongodb.MongoWriteException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,11 +28,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public String createBook(BookDetailsDto dto) {
-        if(bookRepository.existsByTitle(dto.getTitle())){
-            throw new BookTitleAlreadyExistsException("Book with title: " + dto.getTitle() + " already exists.");
+        try {
+            return bookRepository.save(bookMapper.toModel(dto)).getId();
+        } catch (DuplicateKeyException e) {
+            if (e.getMessage().contains("Write operation error")) {
+                throw new BookTitleAlreadyExistsException("Book with title: " + dto.getTitle() + " already exists.");
+            }
+            throw e;
         }
-
-        return bookRepository.save(bookMapper.toModel(dto)).getId();
     }
 
     @Override

@@ -17,3 +17,6 @@ db.createUser({
 db.createCollection("books");
 db.createCollection("comments");
 
+db.books.createIndex({ "title": 1 }, { unique: true });
+
+
