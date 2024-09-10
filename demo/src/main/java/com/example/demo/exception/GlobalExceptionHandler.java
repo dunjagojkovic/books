@@ -10,8 +10,8 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(BookNotFoundException.class)
-    public ResponseEntity<String> handleBookNotFoundException(BookNotFoundException ex){
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleBookNotFoundException(EntityNotFoundException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
