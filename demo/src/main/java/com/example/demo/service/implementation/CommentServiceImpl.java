@@ -25,12 +25,12 @@ public class CommentServiceImpl implements CommentService {
     private final BookMapper bookMapper;
 
     @Override
-    public Long addComment(CommentDto dto, Long bookId) {
+    public Long addCommentForBook (CommentDto dto, Long bookId) {
         Book bookToAddComment = bookRepository.findById(bookId)
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + bookId + " does not exist."));
-        BookDetailsDto bookDetailsDto = bookMapper.toDetailsDto(bookToAddComment);
+        BookDetailsDto bookDetailsDto = bookMapper.convertModelToBookDetailsDto(bookToAddComment);
 
-        return commentRepository.save(commentMapper.toModel(dto, bookDetailsDto)).getId();
+        return commentRepository.save(commentMapper.convertCommentDtoToModel(dto, bookDetailsDto)).getId();
     }
 
     @Override
@@ -39,7 +39,7 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + bookId + " does not exist."));
 
         return commentRepository.findByBook_idAndId(bookToViewComment.getId(), commentId)
-                .map(commentMapper::toDto)
+                .map(commentMapper::convertModelToCommentDto)
                 .orElseThrow(() -> new EntityNotFoundException("Comment with id: " + commentId + " does not exist."));
     }
 
@@ -49,7 +49,7 @@ public class CommentServiceImpl implements CommentService {
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + bookId + " does not exist."));
         return commentRepository.findByBook(bookToViewComments)
                 .stream()
-                .map(commentMapper::toDto)
+                .map(commentMapper::convertModelToCommentDto)
                 .collect(Collectors.toList());
     }
 }

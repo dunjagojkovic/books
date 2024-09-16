@@ -14,7 +14,7 @@ public interface BookService {
     void updateBook(Long id, EditBookDetailsDto dto);
     List<BookDetailsDto> getAll();
     void deleteBook(Long id);
-    BookDto getById(Long id);
+    BookDto getBookWithAllCommentsById (Long id);
     List<BookDetailsDto> searchByTitle(String title);
     List<BookDetailsDto> filterByNumberOfPages (Integer from, Integer to);
     List<BookDetailsDto> filterByPublishingDate(LocalDate date);

@@ -29,20 +29,20 @@ public class BookServiceImpl implements BookService {
             throw new BookTitleAlreadyExistsException("Book with title: " + dto.getTitle() + " already exists.");
         }
 
-        return bookRepository.save(bookMapper.toModel(dto)).getId();
+        return bookRepository.save(bookMapper.convertBookDetailsDtoToModel(dto)).getId();
     }
 
     @Override
     public BookDetailsDto getBookDetailsById(Long id) {
         return bookRepository.findById(id)
-                .map(bookMapper::toDetailsDto)
+                .map(bookMapper::convertModelToBookDetailsDto)
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " does not exist."));
     }
 
     @Override
     public void updateBook(Long id, EditBookDetailsDto dto) {
         bookRepository.findById(id)
-                .map(bookToUpdate -> bookRepository.save(bookMapper.toModel(dto, bookToUpdate)))
+                .map(bookToUpdate -> bookRepository.save(bookMapper.convertBookDetailsDtoToModel(dto, bookToUpdate)))
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " you are trying to edit does not exist."));
     }
 
@@ -50,7 +50,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDetailsDto> getAll() {
         return bookRepository.findAll()
                 .stream()
-                .map(bookMapper::toDetailsDto)
+                .map(bookMapper::convertModelToBookDetailsDto)
                 .collect(Collectors.toList());
     }
 
@@ -62,9 +62,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto getById(Long id) {
+    public BookDto getBookWithAllCommentsById (Long id) {
         return bookRepository.findById(id)
-                .map(bookMapper::modelToDto)
+                .map(bookMapper::convertModelToBookDto)
                 .orElseThrow(() -> new EntityNotFoundException("Book with id: " + id + " does not exist."));
     }
 
@@ -72,7 +72,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDetailsDto> searchByTitle(String title) {
         return bookRepository.findByTitleContainingIgnoreCase(title)
                 .stream()
-                .map(bookMapper::toDetailsDto)
+                .map(bookMapper::convertModelToBookDetailsDto)
                 .collect(Collectors.toList());
     }
 
@@ -80,7 +80,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDetailsDto> filterByNumberOfPages(Integer from, Integer to) {
         return bookRepository.findByNumberOfPagesBetween(from, to)
                 .stream()
-                .map(bookMapper::toDetailsDto)
+                .map(bookMapper::convertModelToBookDetailsDto)
                 .collect(Collectors.toList());
     }
 
@@ -88,7 +88,7 @@ public class BookServiceImpl implements BookService {
     public List<BookDetailsDto> filterByPublishingDate(LocalDate date) {
         return bookRepository.findByPublishingDateAfter(date)
                 .stream()
-                .map(bookMapper::toDetailsDto)
+                .map(bookMapper::convertModelToBookDetailsDto)
                 .collect(Collectors.toList());
     }
 }

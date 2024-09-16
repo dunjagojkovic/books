@@ -47,7 +47,7 @@ public class BookController {
 
     @GetMapping("/{bookId}")
     public ResponseEntity<?> getBookById(@PathVariable Long bookId){
-        return new ResponseEntity<>(bookService.getById(bookId), HttpStatus.OK);
+        return new ResponseEntity<>(bookService.getBookWithAllCommentsById(bookId), HttpStatus.OK);
     }
 
     @GetMapping("/search-by-title")

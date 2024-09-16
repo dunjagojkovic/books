@@ -16,7 +16,7 @@ public class CommentController {
 
     @PostMapping("/books/{bookId}/comments")
     public ResponseEntity<?> addCommentForBook(@RequestBody CommentDto dto, @PathVariable Long bookId){
-       return new ResponseEntity<>(commentService.addComment(dto, bookId), HttpStatus.CREATED);
+       return new ResponseEntity<>(commentService.addCommentForBook(dto, bookId), HttpStatus.CREATED);
     }
 
     @GetMapping("/books/{bookId}/comments")
