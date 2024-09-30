@@ -2,21 +2,19 @@ package com.example.demo.mapper;
 
 import com.example.demo.dto.BookDetailsDto;
 import com.example.demo.dto.BookDto;
-import com.example.demo.dto.CommentDto;
 import com.example.demo.dto.EditBookDetailsDto;
 import com.example.demo.model.Book;
-import com.example.demo.model.Comment;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 public class BookMapper {
 
-    private final CommentMapper commentMapper;
+    @Autowired
+    @Lazy
+    private  CommentMapper commentMapper;
 
     public BookDetailsDto convertModelToBookDetailsDto(Book book){
 
@@ -29,7 +27,6 @@ public class BookMapper {
         return dto;
     }
 
-    //todo: pozivati comment mapper koji vec radi ovo, ne duplirati kod
     public BookDto convertModelToBookDto(Book book){
 
         BookDto dto = new BookDto();

@@ -3,17 +3,17 @@ package com.example.demo.mapper;
 import com.example.demo.dto.CommentDto;
 import com.example.demo.dto.BookDetailsDto;
 import com.example.demo.model.Comment;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@RequiredArgsConstructor
 public class CommentMapper {
 
-    private final BookMapper bookMapper;
+    @Autowired
+    private BookMapper bookMapper;
 
     public Comment convertCommentDtoToModel(CommentDto commentDto, BookDetailsDto bookDto){
 
